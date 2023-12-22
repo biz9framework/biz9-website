@@ -37,7 +37,7 @@ const AWS_SECRET="";
 const AWS_REGION='us-east-2';
 /* --- AWS END --- */
 /* --- BREVO-START --- */
-const BREVO_KEY="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";
+const BREVO_KEY="";
 const BREVO_FORM_SEND_SUBJECT ='Brevo Mail Message Test';
 const BREVO_ORDER_SEND_TEMPLATE_ID='7';
 const BREVO_FORM_SEND_TEMPLATE_ID='10';
