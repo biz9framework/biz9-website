@@ -15,7 +15,7 @@ biz9_app_config=require("./biz9_app_config");
 ENV=process.env.NODE_ENV;
 /*--- APP DEFAULT END ---*/
 /* --- APP CONFIG START  --- */
-BIZ9_WEBSITE_VERSION='4.0.1'
+BIZ9_WEBSITE_VERSION='4.0.8'
 APP_VERSION='1.0.0'
 APP_ID=biz9_app_config.APP_ID;
 APP_TITLE_ID=biz9_app_config.APP_TITLE_ID;
@@ -70,8 +70,8 @@ data_config={
     mongo_username_password:biz9_app_config.MONGO_USERNAME_PASSWORD,
     mongo_ip:biz9_app_config.MONGO_IP,
     mongo_port:biz9_app_config.MONGO_PORT,
-    mongo_config_file:biz9_app_config.MONGO_CONFIG_FILE,
-    ssh_key_file:biz9_app_config.SSH_KEY_FILE,
+    mongo_config:biz9_app_config.MONGO_CONFIG,
+    ssh_key:biz9_app_config.SSH_KEY,
     redis_url:biz9_app_config.REDIS_URL,
     redis_port:biz9_app_config.REDIS_PORT,
 };
@@ -79,7 +79,8 @@ app_config={
     app_title_id:biz9_app_config.APP_TITLE_ID,
     app_version:APP_VERSION,
     app_title:biz9_app_config.APP_TITLE,
-    app_id:biz9_app_config.APP_ID,
+    framework_version:BIZ9_WEBSITE_VERSION,
+    project_id:biz9_app_config.PROJECT_ID,
     file_url:biz9_app_config.FILE_URL,
     biz_map:biz9_app_config.BIZ_MAP
 }
