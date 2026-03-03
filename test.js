@@ -7,7 +7,7 @@ Description: BiZ9 Framework: Website - Test
 const async = require('async');
 const assert = require('node:assert');
 const {Log} = require("biz9-utility");
-const {File_Logic,Image_Logic,Storage_Logic,Website_Title,Website_Type,Website_Url,Website_Field,Website_Table} = require("./index");
+const {File_Logic,Image_Logic,Storage_Logic,Website_Title,Website_Type,Website_Url,Website_Field,Website_Table,Page_Logic} = require("./index");
 /*
  * availble tests
 - connect
@@ -26,8 +26,11 @@ describe('connect', function(){ this.timeout(25000);
         async.series([
             async function(call){
                 //-->
-                let print_test = true;
-                let biz_data = Image_Logic.get_process_items('uploaddir1','filename1');
+                let print_test = false;
+                let pages = Page_Logic.get_pages();
+                Log.w('pages',pages);
+
+                //let biz_data = Image_Logic.get_process_items('uploaddir1','filename1');
 
                 if(print_test){;
                     Log.w('99_biz_data',biz_data);

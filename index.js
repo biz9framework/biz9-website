@@ -6,10 +6,8 @@ Description: BiZ9 Framework: Website
 */
 const {Scriptz}=require("biz9-scriptz");
 const {Data_Logic}=require("biz9-data-logic");
-const {Log}=require("biz9-utility");
+const {Log,Str}=require("biz9-utility");
 class Website_Url {
-    static IMAGE_POST="biz9/image/post";
-    static IMAGE_CDN_POST="biz9/image/cdn_post";
     //page
     static PAGE_ABOUT="page/about";
     static PAGE_BLOG_POST="page/blog_post";
@@ -34,15 +32,14 @@ class Website_Url {
     static PAGE_SERVICE_SEARCH="page/service_search";
     static PAGE_REVIEW_HOME="page/review_home";
 }
-class Website_Field {
-    //image
-    static IMAGE_FILENAME = 'image_filename';
-    static IMAGES = 'images';
-}
 class Website_Table {
+    static CATEGORY="category_biz";
     static IMAGE="image_biz";
     static FILE="file_biz";
     static PAGE="page_biz";
+    static TEMPLATE="template_biz";
+    static SUB_VALUE='sub_value_biz';
+    static SUB_VALUE_ITEMS='sub_value_item_biz';
 }
 class Website_Title {
     static IMAGES='Images';
@@ -73,18 +70,50 @@ class Website_Title {
     static PAGE_SERVICE='Service';
     static PAGE_SERVICE_HOME='Service Home';
     static PAGE_SERVICE_SEARCH='Service Search';
-
+    //template
+    static TEMPLATE_SECTION_HEADER='Header Section';
+    static TEMPLATE_SECTION_BODY='Body Section';
+    static TEMPLATE_SECTION_FOOTER='Footer Section';
+}
+class Form_Field {
+    static CATEGORY="category";
+    static DATE_CREATE='date_create';
+    static DATE_SAVE='date_save';
+    static GROUP='group';
+    static GROUP_ID='group_id';
+    static IMAGE="image";
+    static IMAGES = 'images';
+    static ITEMS_FIELD = 'items_field';
+    static ITEMS_TITLE = 'items_title';
+    static ITEMS_VALUE = 'items_value';
+    static ITEMS="items";
+    static IMAGE_FILENAME = 'image_filename';
+    static MESSAGE="message";
+    static NOTE="note";
+    static TITLE="title";
+    static TITLE_URL="title_url";
+    static TEMP_ID="temp_id";
+    static TEXT="text";
+    static TYPE="type";
+    static USER='user';
+    static USER_ID = 'user_id';
+    static URL="url";
+    static PARENT_ID = 'parent_id';
+    static PARENT_TABLE='parent_table';
+    static USER_TABLE='user_table';
+    static SOURCE='source';
+    static SOURCE_ID='source_id';
+    static SOURCE_TABLE='source_table';
+    static TAGS="tags";
+    static TYPE="type";
+    static TITLE = 'title';
+    static TITLE_URL = 'title_url';
+    static VALUE = 'value';
 }
 class Website_Type {
    //result
     static RESULT_OK_GROUP_IMAGE_DELETE = 'group_image_delete_resultOK';
     static RESULT_OK_IMAGE_DELETE = 'image_delete_resultOK';
-    //field_value
-    static FIELD_VALUE_TEXT="text";
-    static FIELD_VALUE_NOTE="note";
-    static FIELD_VALUE_IMAGE="image";
-    static FIELD_VALUE_ITEMS="items";
-    static FIELD_MESSAGE="message";
 }
 class Storage_Logic {
     static get = (window,key) => {
@@ -201,8 +230,9 @@ class Image_Logic {
     }
 }
 class Field_Logic {
+    //old no more bp
     static get_field_value_value = (value_type,item,value_id) =>{
-        if(value_type!=Website_Type.FIELD_VALUE_ITEMS){
+        if(value_type!=Form_FIeld.ITEMS){
             return ""
         }else{
             return  [];
@@ -210,16 +240,16 @@ class Field_Logic {
     };
     static get_field_value_title = (value_type,value_id,group_id,sub_field_title) =>{
         switch(value_type){
-            case Website_Type.FIELD_VALUE_TEXT:
+            case Form_Field.TEXT:
                 return 'text'+'_value_'+value_id;
                 break;
-            case Website_Type.FIELD_VALUE_NOTE:
+            case Form_Field.NOTE:
                 return 'note'+'_value_'+value_id;
                 break;
-            case Website_Type.FIELD_VALUE_IMAGE:
+            case Form_Field.IMAGE:
                 return 'image'+'_value_'+value_id;
                 break;
-            case Website_Type.FIELD_VALUE_ITEMS:
+            case Form_Field.ITEMS:
                 if(!group_id){
                     return 'items'+'_value_'+value_id;
                 }else{
@@ -256,6 +286,19 @@ class Field_Logic {
     }
     */
 }
+class Template_Logic {
+    static get_template_section(type){
+        let template_section_list = [
+            {value:Website_Title.TEMPLATE_SECTION_HEADER,title:Website_Title.TEMPLATE_SECTION_HEADER,label:Website_Title.TEMPLATE_SECTION_HEADER},
+            {value:Website_Title.TEMPLATE_SECTION_BODY,title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY},
+            {value:Website_Title.TEMPLATE_SECTION_FOOTER,title:Website_TItle.TEMPLATE_SECTION_FOOTER,label:Website_Title.TEMPLATE_SECTION_FOOTER},
+        ];
+        return template_section_list.find(item_find => item_find.value === type)? template_section_list.find(item_find => item_find.value === type) : {value:Website_Title.TEMPLATE_SECTION_BODY,title:Websit_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY};
+    };
+    static get_template_sub_value_edit = (template_id,section_type) => {
+        return {parent_table:Website_Table.TEMPLATE,parent_id:template_id,section_type:section_type,event_handler:section_type + "_"+Form_Field.MESSAGE};
+     };
+}
 class Page_Logic {
     static get_test = () =>{
         let data = Data_Logic.get(Website_Table.PAGE,0);
@@ -265,46 +308,49 @@ class Page_Logic {
     };
     static get_page_section(type){
         let page_section_list = [
-            {value:Title.PAGE_SECTION_HEADER,title:Title.PAGE_SECTION_HEADER,label:Str.get_title_url(Title.PAGE_SECTION_HEADER)},
-            {value:Title.PAGE_SECTION_BODY,title:Title.PAGE_SECTION_BODY,label:Str.get_title_url(Title.PAGE_SECTION_BODY)},
-            {value:Title.PAGE_SECTION_FOOTER,title:Title.PAGE_SECTION_FOOTER,label:Str.get_title_url(Title.PAGE_SECTION_FOOTER)},
+            {value:Website_Title.PAGE_SECTION_HEADER,title:Title.PAGE_SECTION_HEADER,label:Str.get_title_url(Website_Title.PAGE_SECTION_HEADER)},
+            {value:Website_Title.PAGE_SECTION_BODY,title:Title.PAGE_SECTION_BODY,label:Str.get_title_url(Website_Title.PAGE_SECTION_BODY)},
+            {value:Website_Title.PAGE_SECTION_FOOTER,title:Title.PAGE_SECTION_FOOTER,label:Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER)},
         ];
-        return page_section_list.find(item_find => item_find.value === type)? page_section_list.find(item_find => item_find.value === type) : {value:Title.PAGE_SECTION_BODY,title:Title.PAGE_SECTION_BODY,label:Str.get_title_url(Type.PAGE_SECTION_BODY)};
+        return page_section_list.find(item_find => item_find.value === type)? page_section_list.find(item_find => item_find.value === type) : {value:Title.PAGE_SECTION_BODY,title:Title.PAGE_SECTION_BODY,label:Str.get_title_url(Website_Section_Body.PAGE_SECTION_BODY)};
     };
     static get_page_sub_value_edit = (page_id,section_type) => {
-        return {parent_table:Website_Table.PAGE,parent_id:page_id,section_type:section_type,event_handler:section_type + "_"+Type.FIELD_MESSAGE};
+        return {parent_table:Website_Table.PAGE,parent_id:page_id,section_type:section_type,event_handler:section_type + "_"+Form_Field.MESSAGE};
     };
     static get_pages(){
-        return [
-            {value:Title.PAGE_ABOUT,title:Title.PAGE_ABOUT,label:Str.get_title_url(Type.PAGE_ABOUT),url:Website_Url.PAGE_ABOUT},
-
-            {value:Type.PAGE_BLOG_POST,title:Type.TITLE_PAGE_BLOG_POST,label:Type.TITLE_PAGE_BLOG_POST,url:Url.PAGE_BLOG_POST},
-
-            {value:Type.PAGE_BLOG_POST_HOME,title:Type.TITLE_PAGE_BLOG_POST_HOME,label:Type.TITLE_PAGE_BLOG_POST_HOME,url:Url.PAGE_BLOG_POST_HOME},
-            {value:Type.PAGE_CONTACT,title:Type.TITLE_PAGE_CONTACT,label:Type.TITLE_PAGE_CONTACT,url:Url.PAGE_CONTACT},
-            {value:Type.PAGE_EVENT,title:Type.TITLE_PAGE_EVENT,label:Type.TITLE_PAGE_EVENT,url:Url.PAGE_EVENT},
-            {value:Type.PAGE_EVENT_HOME,title:Type.TITLE_PAGE_EVENT_HOME,label:Type.TITLE_PAGE_EVENT_HOME,url:Url.PAGE_EVENT_HOME},
-            {value:Type.PAGE_FAQ,title:Type.TITLE_PAGE_FAQ,label:Type.TITLE_PAGE_FAQ,url:Url.PAGE_FAQ},
-            {value:Type.PAGE_HOME,title:Type.TITLE_PAGE_HOME,label:Type.TITLE_PAGE_HOME,url:Url.PAGE_HOME},
-            {value:Type.PAGE_GALLERY,title:Type.TITLE_PAGE_GALLERY,label:Type.TITLE_PAGE_GALLERY,url:Url.PAGE_GALLERY},
-            {value:Type.PAGE_GALLERY_HOME,title:Type.TITLE_PAGE_GALLERY_HOME,label:Type.TITLE_PAGE_GALLERY_HOME,url:Url.PAGE_GALLERY_HOME},
-            {value:Type.PAGE_LOGIN,title:Type.TITLE_PAGE_LOGIN,label:Type.TITLE_PAGE_LOGIN,url:Url.PAGE_LOGIN},
-            {value:Type.PAGE_PRODUCT,title:Type.TITLE_PAGE_PRODUCT,label:Type.TITLE_PAGE_PRODUCT,url:Url.PAGE_PRODUCT},
-            {value:Type.PAGE_PRODUCT_HOME,title:Type.TITLE_PAGE_PRODUCT_HOME,label:Type.TITLE_PAGE_PRODUCT_HOME,url:Url.PAGE_PRODUCT_HOME},
-            {value:Type.PAGE_REGISTER,title:Type.TITLE_PAGE_REGISTER,label:Type.TITLE_PAGE_REGISTER,url:Url.REGISTER},
-            {value:Type.PAGE_REVIEW_HOME,title:Type.TITLE_PAGE_REVIEW_HOME,label:Type.TITLE_PAGE_REVIEW_HOME,url:Url.PAGE_REVIEW_HOME},
-            {value:Type.PAGE_SERVICE,title:Type.TITLE_PAGE_SERVICE,label:Type.TITLE_PAGE_SERVICE,url:Url.PAGE_SERVICE},
-            {value:Type.PAGE_SERVICE_HOME,title:Type.TITLE_PAGE_SERVICE_HOME,label:Type.TITLE_PAGE_SERVICE_HOME,url:Url.PAGE_SERVICE_HOME},
-        ];
+        let pages = [
+            {type:Str.get_title_url(Website_Title.PAGE_ABOUT),url:Website_Url.PAGE_ABOUT,title:Str.get_title(Website_Title.PAGE_ABOUT)},
+            {type:Str.get_title_url(Website_Title.PAGE_BLOG_POST),url:Website_Url.PAGE_BLOG_POST,title:Str.get_title(Website_Title.PAGE_BLOG_POST)},
+            {type:Str.get_title_url(Website_Title.PAGE_CONTACT),url:Website_Url.PAGE_CONTACT,title:Str.get_title(Website_Title.PAGE_CONTACT)},
+            {type:Str.get_title_url(Website_Title.PAGE_EVENT),url:Website_Url.PAGE_EVENT,title:Str.get_title(Website_Title.PAGE_EVENT)},
+            {type:Str.get_title_url(Website_Title.PAGE_FAQ),url:Website_Url.PAGE_FAQ,title:Str.get_title(Website_Title.PAGE_FAQ)},
+            {type:Str.get_title_url(Website_Title.PAGE_HOME),url:Website_Url.PAGE_HOME,title:Str.get_title(Website_Title.PAGE_HOME)},
+            {type:Str.get_title_url(Website_Title.PAGE_FAQ),url:Website_Url.PAGE_FAQ,title:Str.get_title(Website_Title.PAGE_FAQ)},
+            {type:Str.get_title_url(Website_Title.PAGE_GALLERY),url:Website_Url.PAGE_GALLERY,title:Str.get_title(Website_Title.PAGE_GALLERY)},
+            {type:Str.get_title_url(Website_Title.PAGE_PRODUCT),url:Website_Url.PAGE_PRODUCT,title:Str.get_title(Website_Title.PAGE_PRODUCT)},
+            {type:Str.get_title_url(Website_Title.PAGE_REGISTER),url:Website_Url.PAGE_REGISTER,title:Str.get_title(Website_Title.PAGE_REGISTER)},
+            {type:Str.get_title_url(Website_Title.PAGE_SERVICE),url:Website_Url.PAGE_SERVICE,title:Str.get_title(Website_Title.PAGE_SERVICE)}
+         ];
+        let r_pages = [];
+        for(const page of pages){
+            let r_page = {};
+            r_page.label = page.title;
+            r_page.title = page.title;
+            r_page.value = page.type;
+            r_page.url = page.url;
+            r_pages.push(r_page);
+        };
+        return r_pages;
     };
 }
 
 module.exports = {
+    Form_Field,
     File_Logic,
     Image_Logic,
     Page_Logic,
+    Template_Logic,
     Storage_Logic,
-    Website_Field,
     Website_Table,
     Website_Title,
     Website_Type,
