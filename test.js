@@ -6,8 +6,18 @@ Description: BiZ9 Framework: Website - Test
 */
 const async = require('async');
 const assert = require('node:assert');
-const {Log} = require("biz9-utility");
-const {File_Logic,Image_Logic,Storage_Logic,Website_Title,Website_Type,Website_Url,Website_Field,Website_Table,Page_Logic} = require("./index");
+const {Log,Str} = require("biz9-utility");
+const {Form_Field,
+    File_Logic,
+    Image_Logic,
+    Page_Logic,
+    Template_Logic,
+    Storage_Logic,
+    Website_Table,
+    Website_Title,
+    Website_Type,
+    Website_Url
+} = require("./index");
 /*
  * availble tests
 - connect
@@ -27,8 +37,11 @@ describe('connect', function(){ this.timeout(25000);
             async function(call){
                 //-->
                 let print_test = false;
-                let pages = Page_Logic.get_pages();
-                Log.w('pages',pages);
+                //Log.w('33_print',Website_Title);
+                //Log.w('33_print',Page_Logic.get_page_section(Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER)));
+                //Log.w('tttttt',Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER));
+                Log.w('33_print',Page_Logic.get_pages());
+                //Log.w('33_print',Template_Logic);
 
                 //let biz_data = Image_Logic.get_process_items('uploaddir1','filename1');
 

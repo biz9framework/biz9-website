@@ -286,11 +286,11 @@ class Field_Logic {
     */
 }
 class Template_Logic {
-    static get_template_section(type){
+    static get_template_section = (type) => {
         let template_section_list = [
-            {value:Website_Title.TEMPLATE_SECTION_HEADER,title:Website_Title.TEMPLATE_SECTION_HEADER,label:Website_Title.TEMPLATE_SECTION_HEADER},
-            {value:Website_Title.TEMPLATE_SECTION_BODY,title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY},
-            {value:Website_Title.TEMPLATE_SECTION_FOOTER,title:Website_TItle.TEMPLATE_SECTION_FOOTER,label:Website_Title.TEMPLATE_SECTION_FOOTER},
+            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_HEADER),title:Website_Title.TEMPLATE_SECTION_HEADER,label:Website_Title.TEMPLATE_SECTION_HEADER},
+            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_BODY),title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY},
+            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_FOOTER),title:Website_TItle.TEMPLATE_SECTION_FOOTER,label:Website_Title.TEMPLATE_SECTION_FOOTER},
         ];
         return template_section_list.find(item_find => item_find.value === type)? template_section_list.find(item_find => item_find.value === type) : {value:Website_Title.TEMPLATE_SECTION_BODY,title:Websit_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY};
     };
@@ -305,13 +305,15 @@ class Page_Logic {
         data.value="Value "+ Num.get_id();
         return data;
     };
-    static get_page_section(type){
+ static get_page_section = (type) => {
+     console.log('aaaaaa');
         let page_section_list = [
-            {value:Website_Title.PAGE_SECTION_HEADER,title:Title.PAGE_SECTION_HEADER,label:Str.get_title_url(Website_Title.PAGE_SECTION_HEADER)},
-            {value:Website_Title.PAGE_SECTION_BODY,title:Title.PAGE_SECTION_BODY,label:Str.get_title_url(Website_Title.PAGE_SECTION_BODY)},
-            {value:Website_Title.PAGE_SECTION_FOOTER,title:Title.PAGE_SECTION_FOOTER,label:Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER)},
+            {value:Str.get_title_url(Website_Title.PAGE_SECTION_HEADER),title:Website_Title.PAGE_SECTION_HEADER,label:Website_Title.PAGE_SECTION_HEADER},
+            {value:Str.get_title_url(Website_Title.PAGE_SECTION_BODY),title:Website_Title.PAGE_SECTION_BODY,label:Website_Title.PAGE_SECTION_BODY},
+            {value:Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER),title:Website_Title.PAGE_SECTION_FOOTER,label:Website_Title.PAGE_SECTION_FOOTER}
         ];
-        return page_section_list.find(item_find => item_find.value === type)? page_section_list.find(item_find => item_find.value === type) : {value:Title.PAGE_SECTION_BODY,title:Title.PAGE_SECTION_BODY,label:Str.get_title_url(Website_Section_Body.PAGE_SECTION_BODY)};
+     console.log(page_section_list);
+        return page_section_list.find(item_find => item_find.value === type)? page_section_list.find(item_find => item_find.value === type) : {value:Website_Title.PAGE_SECTION_BODY,title:Website_Title.PAGE_SECTION_BODY,label:Str.get_title_url(Website_Section_Body.PAGE_SECTION_BODY)};
     };
     static get_page_sub_value_edit = (page_id,section_type) => {
         return {parent_table:Website_Table.PAGE,parent_id:page_id,section_type:section_type,event_handler:section_type + "_"+Form_Field.MESSAGE};
@@ -342,7 +344,6 @@ class Page_Logic {
         return r_pages;
     };
 }
-
 module.exports = {
     Form_Field,
     File_Logic,
