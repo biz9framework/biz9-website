@@ -290,7 +290,7 @@ class Template_Logic {
         let template_section_list = [
             {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_HEADER),title:Website_Title.TEMPLATE_SECTION_HEADER,label:Website_Title.TEMPLATE_SECTION_HEADER},
             {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_BODY),title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY},
-            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_FOOTER),title:Website_TItle.TEMPLATE_SECTION_FOOTER,label:Website_Title.TEMPLATE_SECTION_FOOTER},
+            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_FOOTER),title:Website_Title.TEMPLATE_SECTION_FOOTER,label:Website_Title.TEMPLATE_SECTION_FOOTER},
         ];
         return template_section_list.find(item_find => item_find.value === type)? template_section_list.find(item_find => item_find.value === type) : {value:Website_Title.TEMPLATE_SECTION_BODY,title:Websit_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY};
     };
