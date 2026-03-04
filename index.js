@@ -292,7 +292,7 @@ class Template_Logic {
             {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_BODY),title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY},
             {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_FOOTER),title:Website_Title.TEMPLATE_SECTION_FOOTER,label:Website_Title.TEMPLATE_SECTION_FOOTER},
         ];
-        return template_section_list.find(item_find => item_find.value === type)? template_section_list.find(item_find => item_find.value === type) : {value:Website_Title.TEMPLATE_SECTION_BODY,title:Websit_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY};
+        return template_section_list.find(item_find => item_find.value === type)? template_section_list.find(item_find => item_find.value === type) : {value:Website_Title.TEMPLATE_SECTION_BODY,title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY};
     };
     static get_template_sub_value_edit = (template_id,section_type) => {
         return {parent_table:Website_Table.TEMPLATE,parent_id:template_id,section_type:section_type,event_handler:section_type + "_"+Form_Field.MESSAGE};
