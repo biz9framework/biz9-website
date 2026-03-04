@@ -311,7 +311,6 @@ class Page_Logic {
             {value:Str.get_title_url(Website_Title.PAGE_SECTION_BODY),title:Website_Title.PAGE_SECTION_BODY,label:Website_Title.PAGE_SECTION_BODY},
             {value:Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER),title:Website_Title.PAGE_SECTION_FOOTER,label:Website_Title.PAGE_SECTION_FOOTER}
         ];
-     console.log(page_section_list);
         return page_section_list.find(item_find => item_find.value === type)? page_section_list.find(item_find => item_find.value === type) : {value:Website_Title.PAGE_SECTION_BODY,title:Website_Title.PAGE_SECTION_BODY,label:Str.get_title_url(Website_Title.PAGE_SECTION_BODY)};
     };
     static get_page_sub_value_edit = (page_id,section_type) => {
