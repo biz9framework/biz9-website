@@ -8,28 +8,28 @@ const {Data_Logic}=require("biz9-data-logic");
 const {Log,Str,Obj}=require("biz9-utility");
 class Website_Url {
     //page
-    static PAGE_ABOUT="page/about";
-    static PAGE_BLOG_POST="page/blog_post";
-    static PAGE_BLOG_POST_HOME="page/blog_post_home";
-    static PAGE_BLOG_POST_SEARCH="page/blog_post_search";
-    static PAGE_CONTACT="page/contact";
-    static PAGE_EVENT="page/event";
-    static PAGE_EVENT_HOME="page/event_home";
-    static PAGE_EVENT_SEARCH="page/event_search";
-    static PAGE_FAQ="page/faq";
-    static PAGE_GALLERY="page/gallery";
-    static PAGE_GALLERY_HOME="page/gallery_home";
-    static PAGE_GALLERY_SEARCH="page/gallery_search";
-    static PAGE_HOME="index";
-    static PAGE_LOGIN="page/login";
-    static PAGE_PRODUCT="page/product";
-    static PAGE_PRODUCT_HOME="page/product_home";
-    static PAGE_PRODUCT_SEARCH="page/product_search";
-    static PAGE_REGISTER="user/register";
-    static PAGE_SERVICE="page/service";
-    static PAGE_SERVICE_HOME="page/service_home";
-    static PAGE_SERVICE_SEARCH="page/service_search";
-    static PAGE_REVIEW_HOME="page/review_home";
+    static ABOUT="page/about";
+    static BLOG_POST_DETAIL="page/blog_post";
+    static BLOG_POST_HOME="page/blog_post_home";
+    static BLOG_POST_SEARCH="page/blog_post_search";
+    static CONTACT="page/contact";
+    static EVENT_DETAIL="page/event";
+    static EVENT_HOME="page/event_home";
+    static EVENT_SEARCH="page/event_search";
+    static FAQ="page/faq";
+    static GALLERY_DETAIL="page/gallery";
+    static GALLERY_HOME="page/gallery_home";
+    static GALLERY_SEARCH="page/gallery_search";
+    static HOME="index";
+    static LOGIN="page/login";
+    static PRODUCT_DETAIL="page/product";
+    static PRODUCT_HOME="page/product_home";
+    static PRODUCT_SEARCH="page/product_search";
+    static REGISTER="user/register";
+    static SERVICE_DETAIL="page/service";
+    static SERVICE_HOME="page/service_home";
+    static SERVICE_SEARCH="page/service_search";
+    static REVIEW_HOME="page/review_home";
 }
 class Website_Table {
     static CATEGORY="category_biz";
@@ -110,8 +110,9 @@ class Form_Field {
     static VALUE = 'value';
 }
 class Website_Type {
+    static TEMPLATE_PRIMARY = 'primary';
    //result
-    static RESULT_OK_GROUP_IMAGE_DELETE = 'group_image_delete_resultOK';
+    static RESULT_OK_IMAGE_DELETE = 'image_delete_resultOK';
     static RESULT_OK_IMAGE_DELETE = 'image_delete_resultOK';
 }
 class Storage_Logic {
@@ -230,9 +231,9 @@ class Image_Logic {
 }
 class Field_Logic {
     //old no more bp
-    static get_field_value_value = (value_type,item,value_id) =>{
+    static get_field_value_value_old = (value_type,item,value_id) =>{
         if(value_type!=Form_FIeld.ITEMS){
-            return ""
+            return "";
         }else{
             return  [];
         }
