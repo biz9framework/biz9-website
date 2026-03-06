@@ -260,13 +260,13 @@ class Field_Logic {
                 return 'text'+'_value_'+value_id;
         };
     }
-    static get_test_cost(){
+    static get_test_cost = () =>{
         return String(Num.get_id(999)) + "." + String(Num.get_id(99));
     }
     static get_test_note = () => {
         return "Note "+String(Num.get_id()) + " Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
     }
-    static get_field_value_items_title(value_id){
+    static get_field_value_items_title = (value_id) =>{
         return 'items_value_'+value_id;
     }
     /*
@@ -317,7 +317,7 @@ class Page_Logic {
     static get_page_sub_value_edit = (page_id,section_type) => {
         return {parent_table:Website_Table.PAGE,parent_id:page_id,section_type:section_type,event_handler:section_type + "_"+Form_Field.MESSAGE};
     };
-    static get_pages(){
+    static get_pages = () =>{
         let pages = [
             {type:Str.get_title_url(Website_Title.PAGE_ABOUT),url:Website_Url.PAGE_ABOUT,title:Str.get_title(Website_Title.PAGE_ABOUT)},
             {type:Str.get_title_url(Website_Title.PAGE_BLOG_POST),url:Website_Url.PAGE_BLOG_POST,title:Str.get_title(Website_Title.PAGE_BLOG_POST)},
