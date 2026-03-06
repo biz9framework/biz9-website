@@ -22,6 +22,8 @@ class Website_Url {
     static GALLERY_SEARCH="page/gallery_search";
     static HOME="index";
     static LOGIN="page/login";
+    static PAGE_PING_GET="page/ping_get";
+    static PAGE_PING_POST="page/ping_post";
     static PRODUCT="page/product";
     static PRODUCT_HOME="page/product_home";
     static PRODUCT_SEARCH="page/product_search";
