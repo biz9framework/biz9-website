@@ -85,6 +85,7 @@ class Form_Field {
     static GROUP_ID='group_id';
     static IMAGE="image";
     static IMAGES = 'images';
+    static ID = 'id';
     static ITEMS_FIELD = 'items_field';
     static ITEMS_TITLE = 'items_title';
     static ITEMS_VALUE = 'items_value';
