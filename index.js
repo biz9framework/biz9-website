@@ -34,6 +34,7 @@ class Website_Url {
     static REVIEW_HOME="page/review_home";
 }
 class Website_Table {
+    static BLANK="blank_biz";
     static CATEGORY="category_biz";
     static IMAGE="image_biz";
     static FILE="file_biz";
@@ -115,9 +116,14 @@ class Form_Field {
 }
 class Website_Type {
     static TEMPLATE_PRIMARY = 'primary';
-   //result
+    //result
     static RESULT_OK_IMAGE_DELETE = 'image_delete_resultOK';
     static RESULT_OK_IMAGE_DELETE = 'image_delete_resultOK';
+    //sub_value
+    static SUB_VALUE_TEXT = 'text';
+    static SUB_VALUE_NOTE = 'note';
+    static SUB_VALUE_IMAGE = 'image';
+    static SUB_VALUE_ITEMS = 'items';
 }
 class Storage_Logic {
     static get = (window,key) => {
@@ -290,7 +296,7 @@ class Field_Logic {
         return items;
     }
     */
-}
+   }
 class Template_Logic {
     static get_template_section = (type) => {
         let template_section_list = [
@@ -302,7 +308,7 @@ class Template_Logic {
     };
     static get_template_sub_value_edit = (template_id,section_type) => {
         return {parent_table:Website_Table.TEMPLATE,parent_id:template_id,section_type:section_type,event_handler:section_type + "_"+Form_Field.MESSAGE};
-     };
+    };
 }
 class Page_Logic {
     static get_test = () =>{
@@ -311,7 +317,7 @@ class Page_Logic {
         data.value="Value "+ Num.get_id();
         return data;
     };
- static get_page_section = (type) => {
+    static get_page_section = (type) => {
         let page_section_list = [
             {value:Str.get_title_url(Website_Title.PAGE_SECTION_HEADER),title:Website_Title.PAGE_SECTION_HEADER,label:Website_Title.PAGE_SECTION_HEADER},
             {value:Str.get_title_url(Website_Title.PAGE_SECTION_BODY),title:Website_Title.PAGE_SECTION_BODY,label:Website_Title.PAGE_SECTION_BODY},
@@ -335,7 +341,7 @@ class Page_Logic {
             {type:Str.get_title_url(Website_Title.PAGE_PRODUCT),url:Website_Url.PAGE_PRODUCT,title:Str.get_title(Website_Title.PAGE_PRODUCT)},
             {type:Str.get_title_url(Website_Title.PAGE_REGISTER),url:Website_Url.PAGE_REGISTER,title:Str.get_title(Website_Title.PAGE_REGISTER)},
             {type:Str.get_title_url(Website_Title.PAGE_SERVICE),url:Website_Url.PAGE_SERVICE,title:Str.get_title(Website_Title.PAGE_SERVICE)}
-         ];
+        ];
         let r_pages = [];
         for(const page of pages){
             let r_page = {};
