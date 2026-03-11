@@ -41,7 +41,7 @@ describe('connect', function(){ this.timeout(25000);
                 //Log.w('33_print',Website_Title);
                 //Log.w('33_print',Page_Logic.get_page_section(Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER)));
                 //Log.w('tttttt',Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER));
-                Log.w('33_print',Field_Logic.get_test_note());
+                Log.w('33_print',Page_Logic.get_page_sub_value_edit(1,Website_Title.PAGE_SECTION_BODY));
                 //Log.w('33_print',Template_Logic);
 
                 //let biz_data = Image_Logic.get_process_items('uploaddir1','filename1');

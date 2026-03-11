@@ -320,7 +320,7 @@ class Page_Logic {
         return page_section_list.find(item_find => item_find.value === type)? page_section_list.find(item_find => item_find.value === type) : {value:Website_Title.PAGE_SECTION_BODY,title:Website_Title.PAGE_SECTION_BODY,label:Str.get_title_url(Website_Title.PAGE_SECTION_BODY)};
     };
     static get_page_sub_value_edit = (page_id,section_type) => {
-        return {parent_table:Website_Table.PAGE,parent_id:page_id,section_type:section_type,event_handler:section_type + "_"+Form_Field.MESSAGE};
+        return {parent_table:Website_Table.PAGE,parent_id:page_id,section_type:section_type,event_handler:Str.get_title_url(section_type+ "_"+Form_Field.MESSAGE)};
     };
     static get_pages = () =>{
         let pages = [
