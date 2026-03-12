@@ -82,14 +82,12 @@ class Form_Field {
     static DATE_CREATE='date_create';
     static DATE_SAVE='date_save';
     static DESCRIPTION='description';
+    static FIELD='field';
     static GROUP='group';
     static GROUP_ID='group_id';
     static IMAGE="image";
     static IMAGES = 'images';
     static ID = 'id';
-    static ITEMS_FIELD = 'items_field';
-    static ITEMS_TITLE = 'items_title';
-    static ITEMS_VALUE = 'items_value';
     static ITEMS="items";
     static IMAGE_FILENAME = 'image_filename';
     static MESSAGE="message";
