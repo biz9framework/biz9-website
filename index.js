@@ -33,6 +33,10 @@ class Website_Url {
     static SERVICE_SEARCH="page/service_search";
     static REVIEW_HOME="page/review_home";
 }
+class Website_Stat {
+    static ITEM_GET="item_get";
+    static ITEM_POST="item_post";
+}
 class Website_Table {
     static BLANK="blank_biz";
     static CATEGORY="category_biz";
@@ -42,6 +46,7 @@ class Website_Table {
     static TEMPLATE="template_biz";
     static SUB_VALUE='sub_value_biz';
     static SUB_VALUE_ITEMS='sub_value_item_biz';
+    static STAT='stat_biz';
 }
 class Website_Title {
     static IMAGES='Images';
@@ -365,5 +370,6 @@ module.exports = {
     Website_Table,
     Website_Title,
     Website_Type,
+    Website_Stat,
     Website_Url
 };
