@@ -106,6 +106,7 @@ class Form_Field {
     static TYPE="type";
     static USER='user';
     static USER_ID = 'user_id';
+    static USERNAME = 'username';
     static URL="url";
     static PARENT_ID = 'parent_id';
     static PARENT_TABLE='parent_table';
