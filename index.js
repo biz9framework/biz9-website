@@ -87,6 +87,7 @@ class Form_Field {
     static DATE_CREATE='date_create';
     static DATE_SAVE='date_save';
     static DESCRIPTION='description';
+    static EMAIL='email';
     static FIELD='field';
     static GROUP='group';
     static GROUP_ID='group_id';
@@ -119,6 +120,7 @@ class Form_Field {
     static TITLE = 'title';
     static TITLE_URL = 'title_url';
     static VALUE = 'value';
+    static WEBSITE = 'website';
 }
 class Website_Type {
     static TEMPLATE_PRIMARY = 'primary';
