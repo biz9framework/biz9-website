@@ -100,6 +100,7 @@ class Form_Field {
     static IMAGE_FILENAME = 'image_filename';
     static MESSAGE="message";
     static NOTE="note";
+    static TAG="tag";
     static TITLE="title";
     static TITLE_URL="title_url";
     static TEMP_ID="temp_id";
