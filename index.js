@@ -4,8 +4,30 @@ Author: Brandon Poole Sr. (biz9framework@gmail.com)
 License GNU General Public License v3.0
 Description: BiZ9 Framework: Website
 */
-const {Data_Logic}=require("biz9-data-logic");
+const {Data_Logic,Data_Value_Type}=require("biz9-data-logic");
 const {Log,Str,Obj,Num}=require("biz9-utility");
+class Website_Data {
+    static get_user_foreign = (option) => {
+        option = !Obj.check_is_empty(option)  ? option : {};
+        option = Obj.merge(option,{title:'user'});
+        return Data_Logic.get_foreign(Data_Value_Type.ONE,Website_Table.USER,Form_Field.ID,Form_Field.USER_ID,option);
+    };
+    static get_parent_foreign = (parent_table,option) => {
+        option = !Obj.check_is_empty(option)  ? option : {};
+        option = Obj.merge(option,{title:'parent'});
+        return Data_Logic.get_foreign(Data_Value_Type.ONE,parent_table,Form_Field.ID,Form_Field.PARENT_ID,option);
+    };
+    static get_images_foreign = (option) => {
+        option = !Obj.check_is_empty(option)  ? option : {};
+        option = Obj.merge(option,{title:'images'});
+        return Data_Logic.get_foreign(Data_Value_Type.ITEMS,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID,option);
+    };
+    static get_sub_values_foreign = (option) => {
+        option = !Obj.check_is_empty(option)  ? option : {};
+        option = Obj.merge(option,{title:'sub_values'});
+        return Data_Logic.get_foreign(Data_Value_Type.ITEMS,Website_Table.SUB_VALUE,Form_Field.PARENT_ID,Form_Field.ID,option);
+    };
+}
 class Website_Url {
     //page
     static ABOUT="page/about";
@@ -305,7 +327,7 @@ class Field_Logic {
         return items;
     }
     */
-   }
+}
 class Template_Logic {
     static get_template_section = (type) => {
         let template_section_list = [
@@ -371,6 +393,7 @@ module.exports = {
     Page_Logic,
     Template_Logic,
     Storage_Logic,
+    Website_Data,
     Website_Table,
     Website_Title,
     Website_Type,

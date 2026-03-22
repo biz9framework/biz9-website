@@ -14,6 +14,7 @@ const {Form_Field,
     Template_Logic,
     Field_Logic,
     Storage_Logic,
+    Website_Data,
     Website_Table,
     Website_Title,
     Website_Type,
@@ -38,10 +39,13 @@ describe('connect', function(){ this.timeout(25000);
             async function(call){
                 //-->
                 let print_test = false;
+                //Log.w('user_foreign',Website_Data.get_user_foreign());
+                //Log.w('parent_foreign',Website_Data.get_parent_foreign(Website_Table.BLANK));
+                Log.w('sub_values_foreign',Website_Data.get_sub_values_foreign());
                 //Log.w('33_print',Website_Title);
                 //Log.w('33_print',Page_Logic.get_page_section(Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER)));
                 //Log.w('tttttt',Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER));
-                Log.w('33_print',Field_Logic.get_sub_value(Website_Table.BLANK,1,'cool'));
+                //Log.w('33_print',Field_Logic.get_sub_value(Website_Table.BLANK,1,'cool'));
                 //Log.w('33_print',Template_Logic);
 
                 //let biz_data = Image_Logic.get_process_items('uploaddir1','filename1');
