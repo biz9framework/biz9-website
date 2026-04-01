@@ -7,6 +7,8 @@ Description: BiZ9 Framework: Website - Test
 const async = require('async');
 const assert = require('node:assert');
 const {Log,Str} = require("biz9-utility");
+const {Data_Logic,Data_Value_Type}=require("biz9-data-logic");
+
 const {Form_Field,
     File_Logic,
     Image_Logic,
@@ -14,7 +16,7 @@ const {Form_Field,
     Template_Logic,
     Field_Logic,
     Storage_Logic,
-    Website_Data,
+    Website_Logic,
     Website_Table,
     Website_Title,
     Website_Type,
@@ -37,11 +39,17 @@ describe('connect', function(){ this.timeout(25000);
         let data = {};
         async.series([
             async function(call){
+                console.log('CONNECT-START');
+                // -- IMAGE-GALLERY-START -- //
+                //let data = Website_Logic.get_image_gallery_foreign(Data_Value_Type.ITEMS);
+                let data = Website_Logic.get_image_gallery_image_foreign(Data_Value_Type.ITEMS,1,0);
+                Log.w('data',data);
+                console.log('CONNECT-IMAGE-GALLERY-SUCESS');
+                // -- IMAGE-GALLERY-END -- //
                 //-->
-                let print_test = false;
                 //Log.w('user_foreign',Website_Data.get_user_foreign());
                 //Log.w('parent_foreign',Website_Data.get_parent_foreign(Website_Table.BLANK));
-                Log.w('sub_values_foreign',Website_Data.get_sub_values_foreign());
+                //Log.w('sub_values_foreign',Website_Data.get_sub_values_foreign());
                 //Log.w('33_print',Website_Title);
                 //Log.w('33_print',Page_Logic.get_page_section(Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER)));
                 //Log.w('tttttt',Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER));
@@ -50,9 +58,6 @@ describe('connect', function(){ this.timeout(25000);
 
                 //let biz_data = Image_Logic.get_process_items('uploaddir1','filename1');
 
-                if(print_test){;
-                    Log.w('99_biz_data',biz_data);
-                }
             },
         ],
             function(error, result){

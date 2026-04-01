@@ -4,9 +4,10 @@ Author: Brandon Poole Sr. (biz9framework@gmail.com)
 License GNU General Public License v3.0
 Description: BiZ9 Framework: Website
 */
-const {Data_Logic,Data_Value_Type}=require("biz9-data-logic");
+const {Data_Logic,Data_Value_Type,Data_Field} = require("fbiz9-data-logic");
 const {Log,Str,Obj,Num}=require("biz9-utility");
-class Website_Data {
+
+class Website_Logic {
     static get_user_foreign = (option) => {
         option = !Obj.check_is_empty(option)  ? option : {};
         option = Obj.merge(option,{title:'user'});
@@ -17,11 +18,38 @@ class Website_Data {
         option = Obj.merge(option,{title:'parent'});
         return Data_Logic.get_foreign(Data_Value_Type.ONE,parent_table,Form_Field.ID,Form_Field.PARENT_ID,option);
     };
-    static get_images_foreign = (option) => {
+    static get_image_gallery_foreign = (value_type,option) => {
         option = !Obj.check_is_empty(option)  ? option : {};
-        option = Obj.merge(option,{title:'images'});
-        return Data_Logic.get_foreign(Data_Value_Type.ITEMS,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID,option);
+        value_type = value_type ? value_type : Data_Value_Type.ITEMS;
+        let foreign_table = Website_Table.IMAGE_GALLERY;
+        let foreign_field = Form_Field.PARENT_ID;
+        let parent_field =  Form_Field.ID;
+        let field = option.field ? option.field : null;
+        let title = option.title ? Str.get_title_url(option.title) : 'image_gallerys';
+        let page_current = option.page_current ? option.page_current : 1;
+        let page_size = option.page_size ? option.page_size : 0;
+        let foreigns = option.foreigns ? option.foreigns : [];
+        return {value_type:value_type,foreign_table:foreign_table,foreign_field:foreign_field,parent_field:parent_field,field:field,title:title,page_current:page_current,page_size:page_size,foreigns:foreigns};
     };
+
+    static get_image_gallery_image_foreign = (value_type,image_page_current,image_page_size,option) => {
+        option = !Obj.check_is_empty(option)  ? option : {};
+        value_type = value_type ? value_type : Data_Value_Type.ITEMS;
+        let foreign_table = Website_Table.IMAGE_GALLERY;
+        let foreign_field = Form_Field.PARENT_ID;
+        let parent_field =  Form_Field.ID;
+        let field = option.field ? option.field : null;
+        let title = option.title ? Str.get_title_url(option.title) : 'image_gallerys';
+        let page_current = option.page_current ? option.page_current : 1;
+        let page_size = option.page_size ? option.page_size : 0;
+        let image_foreign = Data_Logic.get_foreign(Data_Value_Type.ITEMS,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID,{page_current:image_page_current,page_size:image_page_size,title:'images'});
+        let foreigns = [image_foreign];
+        return {value_type:value_type,foreign_table:foreign_table,foreign_field:foreign_field,parent_field:parent_field,field:field,title:title,page_current:page_current,page_size:page_size,foreigns:foreigns};
+    };
+    static get_image_gallery_foreign_images = (value_type,option) => {
+        let image_foreign = Data_Logic.get_foreign(value_type,Website_Table.IMAGE,Website_Field.PARENT_ID,Website_Field.ID);
+        return Website_Table.get_image_gallery_foreign(value_type,option);
+    }
     static get_sub_values_foreign = (option) => {
         option = !Obj.check_is_empty(option)  ? option : {};
         option = Obj.merge(option,{title:'sub_values'});
@@ -63,12 +91,15 @@ class Website_Table {
     static BLANK="blank_biz";
     static CATEGORY="category_biz";
     static IMAGE="image_biz";
+    static IMAGE_GALLERY="image_gallery_biz";
     static FILE="file_biz";
     static PAGE="page_biz";
     static TEMPLATE="template_biz";
     static SUB_VALUE='sub_value_biz';
     static SUB_VALUE_ITEMS='sub_value_item_biz';
     static STAT='stat_biz';
+    static VIDEO="video_biz";
+    static VIDEO_GALLERY="video_gallery_biz";
 }
 class Website_Title {
     static IMAGES='Images';
@@ -393,7 +424,7 @@ module.exports = {
     Page_Logic,
     Template_Logic,
     Storage_Logic,
-    Website_Data,
+    Website_Logic,
     Website_Table,
     Website_Title,
     Website_Type,
