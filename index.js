@@ -4,7 +4,7 @@ Author: Brandon Poole Sr. (biz9framework@gmail.com)
 License GNU General Public License v3.0
 Description: BiZ9 Framework: Website
 */
-const {Data_Logic,Data_Value_Type,Data_Field} = require("fbiz9-data-logic");
+const {Data_Logic,Data_Value_Type,Data_Field} = require("biz9-data-logic");
 const {Log,Str,Obj,Num}=require("biz9-utility");
 
 class Website_Logic {
