@@ -134,6 +134,10 @@ class Website_Title {
     static TEMPLATE_SECTION_HEADER='Header Section';
     static TEMPLATE_SECTION_BODY='Body Section';
     static TEMPLATE_SECTION_FOOTER='Footer Section';
+    //enviroments
+    static ENVIRONMENT_TEST='Test';
+    static ENVIRONMENT_STAGE='Stage';
+    static ENVIRONMENT_PRODUCTION='Production';
 }
 class Form_Field {
     static CATEGORY="category";
