@@ -48,7 +48,7 @@ class Website_Logic {
     };
     static get_image_gallery_foreign_images = (value_type,option) => {
         let image_foreign = Data_Logic.get_foreign(value_type,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID);
-        return Website_Table.get_image_gallery_foreign(value_type,option);
+        return Website_Table.get_image_gallery_image_foreign(value_type,option);
     }
     static get_sub_values_foreign = (option) => {
         option = !Obj.check_is_empty(option)  ? option : {};
