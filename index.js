@@ -47,7 +47,7 @@ class Website_Logic {
         return {value_type:value_type,foreign_table:foreign_table,foreign_field:foreign_field,parent_field:parent_field,field:field,title:title,page_current:page_current,page_size:page_size,foreigns:foreigns};
     };
     static get_image_gallery_foreign_images = (value_type,option) => {
-        let image_foreign = Data_Logic.get_foreign(value_type,Website_Table.IMAGE,Website_Field.PARENT_ID,Website_Field.ID);
+        let image_foreign = Data_Logic.get_foreign(value_type,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID);
         return Website_Table.get_image_gallery_foreign(value_type,option);
     }
     static get_sub_values_foreign = (option) => {
