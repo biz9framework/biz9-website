@@ -9,7 +9,8 @@ const assert = require('node:assert');
 const {Log,Str} = require("biz9-utility");
 const {Data_Logic,Data_Value_Type}=require("biz9-data-logic");
 
-const {Form_Field,
+const {
+    Form_Field,
     File_Logic,
     Image_Logic,
     Page_Logic,
@@ -30,6 +31,16 @@ const {Form_Field,
 const APP_ID = 'test-stage-feb17';
 /* --- TEST CONFIG END --- */
 
+class Project_Table {
+    static BLANK='blank_biz';
+    static PRODUCT='product_biz';
+    static TYPE='type_biz';
+    static CUSTOM_FIELD='custom_field_biz';
+    static CATEGORY='category_biz';
+    static IMAGE_GALLERY='image_gallery_biz';
+    static IMAGE='image_biz';
+}
+
 /* --- DATA CONFIG END --- */
 //9_connect - 9_test_connect
 describe('connect', function(){ this.timeout(25000);
@@ -40,11 +51,21 @@ describe('connect', function(){ this.timeout(25000);
         async.series([
             async function(call){
                 console.log('CONNECT-START');
+                // -- WEBSITE-TEST-ITEM-START -- //
+                let data = Website_Logic.get_test_items(Project_Table.PRODUCT,3,{generate:true});
+                Log.w('biz_data',data);
+                let query = Website_Logic.get_filter_or_querys(Form_Field.PARENT_ID,Form_data);
+                Log.w('biz_query',query);
+
+                // -- WEBSITE-TEST-ITEM-START -- //
+
                 // -- IMAGE-GALLERY-START -- //
+                /*
                 //let data = Website_Logic.get_image_gallery_foreign(Data_Value_Type.ITEMS);
                 let data = Website_Logic.get_image_gallery_image_foreign(Data_Value_Type.ITEMS,1,0);
                 Log.w('data',data);
                 console.log('CONNECT-IMAGE-GALLERY-SUCESS');
+                */
                 // -- IMAGE-GALLERY-END -- //
                 //-->
                 //Log.w('user_foreign',Website_Data.get_user_foreign());

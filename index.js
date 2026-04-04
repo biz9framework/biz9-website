@@ -8,6 +8,15 @@ const {Data_Logic,Data_Value_Type,Data_Field} = require("biz9-data-logic");
 const {Log,Str,Obj,Num}=require("biz9-utility");
 
 class Website_Logic {
+    static get_filter_or_querys = (field,value_field,items) => {
+         let query = {$or:[]};
+        for(const item of items){
+            let query_field = {};
+            query_field[field] = item[value_field].value;
+            query.$or.push(query_field);
+        }
+        return query;
+    }
     static get_user_foreign = (option) => {
         option = !Obj.check_is_empty(option)  ? option : {};
         option = Obj.merge(option,{title:'user'});
@@ -54,6 +63,32 @@ class Website_Logic {
         option = !Obj.check_is_empty(option)  ? option : {};
         option = Obj.merge(option,{title:'sub_values'});
         return Data_Logic.get_foreign(Data_Value_Type.ITEMS,Website_Table.SUB_VALUE,Form_Field.PARENT_ID,Form_Field.ID,option);
+    };
+    static get_test_item = (table,option) =>{
+        table = !Obj.check_is_empty(table) ? table : Website_Table.BLANK;
+        option = !Obj.check_is_empty(option) ? option : {title:'Item ' + Num.get_id()};
+        let data = Data_Logic.get(table,0,option);
+        if(option.generate){
+            data.id = Num.get_id();
+            data.parent_id = Num.get_id();
+            data.parent = Website_Table.BLANK;
+        }
+        data.category = "Category "+String(Num.get_id());
+        data.type = "Type "+String(Num.get_id());
+        data.note = "Note "+String(Num.get_id());
+        return data;
+    };
+    static get_test_items = (table,count,option) =>{
+        table = !Obj.check_is_empty(table) ? table : Website_Table.BLANK;
+        option = !Obj.check_is_empty(option) ? option : {};
+        if(!count){
+            count = 9;
+        }
+        let items = [];
+        for(let a = 0; a < count; a++){
+            items.push(Website_Logic.get_test_item(table,option));
+        }
+        return items;
     };
 }
 class Website_Url {
