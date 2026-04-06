@@ -27,37 +27,11 @@ class Website_Logic {
         option = Obj.merge(option,{title:'parent'});
         return Data_Logic.get_foreign(Data_Value_Type.ONE,parent_table,Form_Field.ID,Form_Field.PARENT_ID,option);
     };
-    static get_image_gallery_foreign = (value_type,option) => {
-        option = !Obj.check_is_empty(option)  ? option : {};
-        value_type = value_type ? value_type : Data_Value_Type.ITEMS;
-        let foreign_table = Website_Table.IMAGE_GALLERY;
-        let foreign_field = Form_Field.PARENT_ID;
-        let parent_field =  Form_Field.ID;
-        let field = option.field ? option.field : null;
-        let title = option.title ? Str.get_title_url(option.title) : 'image_gallerys';
-        let page_current = option.page_current ? option.page_current : 1;
-        let page_size = option.page_size ? option.page_size : 0;
-        let foreigns = option.foreigns ? option.foreigns : [];
-        return {value_type:value_type,foreign_table:foreign_table,foreign_field:foreign_field,parent_field:parent_field,field:field,title:title,page_current:page_current,page_size:page_size,foreigns:foreigns};
-    };
-
-    static get_image_gallery_image_foreign = (value_type,image_page_current,image_page_size,option) => {
-        option = !Obj.check_is_empty(option)  ? option : {};
-        value_type = value_type ? value_type : Data_Value_Type.ITEMS;
-        let foreign_table = Website_Table.IMAGE_GALLERY;
-        let foreign_field = Form_Field.PARENT_ID;
-        let parent_field =  Form_Field.ID;
-        let field = option.field ? option.field : null;
-        let title = option.title ? Str.get_title_url(option.title) : 'image_gallerys';
-        let page_current = option.page_current ? option.page_current : 1;
-        let page_size = option.page_size ? option.page_size : 0;
-        let image_foreign = Data_Logic.get_foreign(Data_Value_Type.ITEMS,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID,{page_current:image_page_current,page_size:image_page_size,title:'images'});
-        let foreigns = [image_foreign];
-        return {value_type:value_type,foreign_table:foreign_table,foreign_field:foreign_field,parent_field:parent_field,field:field,title:title,page_current:page_current,page_size:page_size,foreigns:foreigns};
-    };
-    static get_image_gallery_foreign_images = (value_type,option) => {
-        let image_foreign = Data_Logic.get_foreign(value_type,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID);
-        return Website_Table.get_image_gallery_image_foreign(value_type,option);
+    static get_image_gallery_join_images = (images_value_type,image_gallery_title_url,option) => {
+        image_gallery_title_url = Str.get_title_url(image_gallery_title_url);
+        let option_foreign_image_gallery_images = Data_Logic.get_foreign(images_value_type,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID,{title:'images'});
+        let search_join_image_gallery = Data_Logic.get_search(Website_Table.IMAGE_GALLERY,{title_url:image_gallery_title_url},{},1,0,{title:image_gallery_title_url + "_image_gallery"});
+        return Data_Logic.get_join(Data_Value_Type.ONE,search_join_image_gallery,{title:image_gallery_title_url+"_image_gallery",foreigns:[ option_foreign_image_gallery_images]});
     }
     static get_sub_values_foreign = (option) => {
         option = !Obj.check_is_empty(option)  ? option : {};
