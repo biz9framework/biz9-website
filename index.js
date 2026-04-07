@@ -27,11 +27,12 @@ class Website_Logic {
         option = Obj.merge(option,{title:'parent'});
         return Data_Logic.get_foreign(Data_Value_Type.ONE,parent_table,Form_Field.ID,Form_Field.PARENT_ID,option);
     };
-    static get_image_gallery_join_images = (images_value_type,image_gallery_title_url,option) => {
+    static get_foreign_image_gallery_images = (images_value_type,image_gallery_title_url,option) => {
+        console.log('aaaaaaaa');
         image_gallery_title_url = Str.get_title_url(image_gallery_title_url);
         let option_foreign_image_gallery_images = Data_Logic.get_foreign(images_value_type,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID,{title:'images'});
-        let search_join_image_gallery = Data_Logic.get_search(Website_Table.IMAGE_GALLERY,{title_url:image_gallery_title_url},{},1,0,{title:image_gallery_title_url + "_image_gallery"});
-        return Data_Logic.get_join(Data_Value_Type.ONE,search_join_image_gallery,{title:image_gallery_title_url+"_image_gallery",foreigns:[ option_foreign_image_gallery_images]});
+        console.log('bbbbbb');
+        return Data_Logic.get_foreign(Data_Value_Type.ONE,Website_Table.IMAGE_GALLERY,Form_Field.PARENT_ID,Form_Field.ID,{title:image_gallery_title_url+"_image_gallery",foreigns:[ option_foreign_image_gallery_images]});
     }
     static get_sub_values_foreign = (option) => {
         option = !Obj.check_is_empty(option)  ? option : {};
