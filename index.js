@@ -9,7 +9,7 @@ const {Log,Str,Obj,Num}=require("biz9-utility");
 
 class Website_Logic {
     static get_filter_or_querys = (field,value_field,items) => {
-         let query = {$or:[]};
+        let query = {$or:[]};
         for(const item of items){
             let query_field = {};
             query_field[field] = item[value_field].value;
@@ -21,6 +21,11 @@ class Website_Logic {
         option = !Obj.check_is_empty(option)  ? option : {};
         option = Obj.merge(option,{title:'sub_values'});
         return Data_Logic.get_foreign(Data_Value_Type.ITEMS,Website_Table.SUB_VALUE,Form_Field.PARENT_ID,Form_Field.ID,option);
+    };
+    static get_foreign_image_gallery_images = (images_value_type,image_gallery_title_url,option) => {
+        image_gallery_title_url = Str.get_title_url(image_gallery_title_url);
+        let option_foreign_image_gallery_images = Data_Logic.get_foreign(images_value_type,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID,{title:'images'});
+        return Data_Logic.get_foreign(Data_Value_Type.ONE,Website_Table.IMAGE_GALLERY,Form_Field.PARENT_ID,Form_Field.ID,{title:image_gallery_title_url+"_image_gallery",foreigns:[ option_foreign_image_gallery_images]});
     };
     static get_test_item = (table,option) =>{
         table = !Obj.check_is_empty(table) ? table : Website_Table.BLANK;
