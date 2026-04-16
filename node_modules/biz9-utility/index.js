@@ -219,6 +219,10 @@ class Obj {
         }
         return false; // No array property found
     };
+    static check_is_value(val) {
+        //check is not array or object
+        return typeof val !== 'object' || val === null;
+    }
     static check_is_array = (obj) =>{
         return Array.isArray(obj);
     }

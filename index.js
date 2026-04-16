@@ -17,24 +17,7 @@ class Website_Logic {
         }
         return query;
     }
-    static get_user_foreign = (option) => {
-        option = !Obj.check_is_empty(option)  ? option : {};
-        option = Obj.merge(option,{title:'user'});
-        return Data_Logic.get_foreign(Data_Value_Type.ONE,Website_Table.USER,Form_Field.ID,Form_Field.USER_ID,option);
-    };
-    static get_parent_foreign = (parent_table,option) => {
-        option = !Obj.check_is_empty(option)  ? option : {};
-        option = Obj.merge(option,{title:'parent'});
-        return Data_Logic.get_foreign(Data_Value_Type.ONE,parent_table,Form_Field.ID,Form_Field.PARENT_ID,option);
-    };
-    static get_foreign_image_gallery_images = (images_value_type,image_gallery_title_url,option) => {
-        console.log('aaaaaaaa');
-        image_gallery_title_url = Str.get_title_url(image_gallery_title_url);
-        let option_foreign_image_gallery_images = Data_Logic.get_foreign(images_value_type,Website_Table.IMAGE,Form_Field.PARENT_ID,Form_Field.ID,{title:'images'});
-        console.log('bbbbbb');
-        return Data_Logic.get_foreign(Data_Value_Type.ONE,Website_Table.IMAGE_GALLERY,Form_Field.PARENT_ID,Form_Field.ID,{title:image_gallery_title_url+"_image_gallery",foreigns:[ option_foreign_image_gallery_images]});
-    }
-    static get_sub_values_foreign = (option) => {
+    static get_foreign_sub_values = (option) => {
         option = !Obj.check_is_empty(option)  ? option : {};
         option = Obj.merge(option,{title:'sub_values'});
         return Data_Logic.get_foreign(Data_Value_Type.ITEMS,Website_Table.SUB_VALUE,Form_Field.PARENT_ID,Form_Field.ID,option);
@@ -167,6 +150,7 @@ class Form_Field {
     static IMAGE_FILENAME = 'image_filename';
     static MESSAGE="message";
     static NOTE="note";
+    static TABLE="table";
     static TAG="tag";
     static TITLE="title";
     static TITLE_URL="title_url";
@@ -406,17 +390,17 @@ class Page_Logic {
     };
     static get_pages = () =>{
         let pages = [
-            {type:Str.get_title_url(Website_Title.PAGE_ABOUT),url:Website_Url.PAGE_ABOUT,title:Str.get_title(Website_Title.PAGE_ABOUT)},
-            {type:Str.get_title_url(Website_Title.PAGE_BLOG_POST),url:Website_Url.PAGE_BLOG_POST,title:Str.get_title(Website_Title.PAGE_BLOG_POST)},
-            {type:Str.get_title_url(Website_Title.PAGE_CONTACT),url:Website_Url.PAGE_CONTACT,title:Str.get_title(Website_Title.PAGE_CONTACT)},
-            {type:Str.get_title_url(Website_Title.PAGE_EVENT),url:Website_Url.PAGE_EVENT,title:Str.get_title(Website_Title.PAGE_EVENT)},
-            {type:Str.get_title_url(Website_Title.PAGE_FAQ),url:Website_Url.PAGE_FAQ,title:Str.get_title(Website_Title.PAGE_FAQ)},
-            {type:Str.get_title_url(Website_Title.PAGE_HOME),url:Website_Url.PAGE_HOME,title:Str.get_title(Website_Title.PAGE_HOME)},
-            {type:Str.get_title_url(Website_Title.PAGE_FAQ),url:Website_Url.PAGE_FAQ,title:Str.get_title(Website_Title.PAGE_FAQ)},
-            {type:Str.get_title_url(Website_Title.PAGE_GALLERY),url:Website_Url.PAGE_GALLERY,title:Str.get_title(Website_Title.PAGE_GALLERY)},
-            {type:Str.get_title_url(Website_Title.PAGE_PRODUCT),url:Website_Url.PAGE_PRODUCT,title:Str.get_title(Website_Title.PAGE_PRODUCT)},
-            {type:Str.get_title_url(Website_Title.PAGE_REGISTER),url:Website_Url.PAGE_REGISTER,title:Str.get_title(Website_Title.PAGE_REGISTER)},
-            {type:Str.get_title_url(Website_Title.PAGE_SERVICE),url:Website_Url.PAGE_SERVICE,title:Str.get_title(Website_Title.PAGE_SERVICE)}
+            {value:Str.get_title_url(Website_Title.PAGE_ABOUT),url:Website_Url.PAGE_ABOUT,title:Str.get_title(Website_Title.PAGE_ABOUT)},
+            {value:Str.get_title_url(Website_Title.PAGE_BLOG_POST),url:Website_Url.PAGE_BLOG_POST,title:Str.get_title(Website_Title.PAGE_BLOG_POST)},
+            {value:Str.get_title_url(Website_Title.PAGE_CONTACT),url:Website_Url.PAGE_CONTACT,title:Str.get_title(Website_Title.PAGE_CONTACT)},
+            {value:Str.get_title_url(Website_Title.PAGE_EVENT),url:Website_Url.PAGE_EVENT,title:Str.get_title(Website_Title.PAGE_EVENT)},
+            {value:Str.get_title_url(Website_Title.PAGE_FAQ),url:Website_Url.PAGE_FAQ,title:Str.get_title(Website_Title.PAGE_FAQ)},
+            {value:Str.get_title_url(Website_Title.PAGE_HOME),url:Website_Url.PAGE_HOME,title:Str.get_title(Website_Title.PAGE_HOME)},
+            {value:Str.get_title_url(Website_Title.PAGE_FAQ),url:Website_Url.PAGE_FAQ,title:Str.get_title(Website_Title.PAGE_FAQ)},
+            {value:Str.get_title_url(Website_Title.PAGE_GALLERY),url:Website_Url.PAGE_GALLERY,title:Str.get_title(Website_Title.PAGE_GALLERY)},
+            {value:Str.get_title_url(Website_Title.PAGE_PRODUCT),url:Website_Url.PAGE_PRODUCT,title:Str.get_title(Website_Title.PAGE_PRODUCT)},
+            {value:Str.get_title_url(Website_Title.PAGE_REGISTER),url:Website_Url.PAGE_REGISTER,title:Str.get_title(Website_Title.PAGE_REGISTER)},
+            {value:Str.get_title_url(Website_Title.PAGE_SERVICE),url:Website_Url.PAGE_SERVICE,title:Str.get_title(Website_Title.PAGE_SERVICE)}
         ];
         let r_pages = [];
         for(const page of pages){
