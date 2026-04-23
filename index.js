@@ -290,6 +290,7 @@ class Page_Logic {
 module.exports = {
     Sub_Value_Logic,
     Form_Field,
+    Page_Logic,
     Website_Logic,
     Website_Table,
     Website_Title,
