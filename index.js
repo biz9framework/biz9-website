@@ -6,7 +6,6 @@ Description: BiZ9 Framework: Website
 */
 const {Data_Logic,Data_Value_Type,Data_Field} = require("biz9-data-logic");
 const {Log,Str,Obj,Num}=require("biz9-utility");
-
 class Website_Logic {
     static get_filter_or_querys = (field,value_field,items) => {
         let query = {$or:[]};
@@ -190,190 +189,67 @@ class Website_Type {
     static SUB_VALUE_IMAGE = 'image';
     static SUB_VALUE_ITEMS = 'items';
 }
-class Storage_Logic {
-    static get = (window,key) => {
-        if(!Obj.check_is_empty(window)){
-            if(Str.check_is_null(window.localStorage.getItem(key))){
-                return null;
-            }else{
-                return JSON.parse(window.localStorage.getItem(key));
-            }
-        }else{
-            return null;
-        }
-    }
-    static post = (window,key,obj) => {
-        if(!Obj.check_is_empty(window)){
-            if(window.localStorage){
-                window.localStorage.setItem(key,JSON.stringify(obj));
-            }
-        }
-    }
-    static delete = (window,key) =>{
-        if(!Obj.check_is_empty(window)){
-            if(window.localStorage){
-                window.localStorage.removeItem(key);
-            }
-        }
-    }
-    static delete_all = (window) =>{
-        if(!Obj.check_is_empty(window)){
-            if(window.localStorage){
-                window.localStorage.clear();
-            }
-        }
-    }
-}
-class File_Logic {
-    static get_url = (host,file_filename,size,param) =>{
-        host = host ? host : "";
-        file_filename = file_filename ? file_filename : "";
-        size = size ? size : "";
-        param = param ? param : "";
-        return host+"/"+size + "_"+file_filename+param;
-    }
-    static get_by_base64 = (item_file) =>{
-        let item = Data_Logic.get(Website_Table.FILE,0,{data:item_file});
-        item.extension = !Str.check_is_null(Str.get_file_type_from_base64(item.file_data)) ? Str.get_file_type_from_base64(item.file_data).extension : 'txt';
-        item.file_filename = !Str.check_is_null(Str.get_file_type_from_base64(item.file_data)) ? Str.get_guid()+ "." + item.extension : 'not_found.txt';
-        item.buffer = !Str.check_is_null(Str.get_file_type_from_base64(item_file.file_data)) ? Buffer.from(item_file.file_data.split(';base64,').pop(), 'base64') : null;
-        return item;
-    };
-};
-class Image_Logic {
-    static get_url = (host,image_filename,size,param) =>{
-        host = host ? host : "";
-        image_filename = image_filename ? image_filename : "";
-        size = size ? size : "";
-        param = param ? param : "";
-        return host+"/"+size + "_"+image_filename+param;
-    }
-    static get_by_base64 = (item_image) =>{
-        let item = Data_Logic.get(Website_Table.IMAGE,0,{data:item_image});
-        item.extension = !Str.check_is_null(Str.get_file_type_from_base64(item.image_data)) ? Str.get_file_type_from_base64(item.image_data).extension : 'jpeg';
-        item.image_filename = !Str.check_is_null(Str.get_file_type_from_base64(item.image_data)) ? Str.get_guid()+ "." + item.extension : 'not_found.jpeg';
-        item.buffer = !Str.check_is_null(Str.get_file_type_from_base64(item_image.image_data)) ? Buffer.from(item_image.image_data.split(';base64,').pop(), 'base64') : null;
-        return item;
-    };
-    static get_process_items = (upload_dir,image_filename) =>{
-        upload_dir = upload_dir ? upload_dir : "";
-        image_filename = image_filename ? image_filename : "";
-        return [
-            {
-                image_filename:Website_Type.IMAGE_SIZE_ORIGINAL+"_"+image_filename,
-                path_filename:upload_dir+"/"+Website_Type.IMAGE_SIZE_ORIGINAL+"_"+image_filename,
-                size:0,
-                type_resize:Website_Type.IMAGE_RESIZE_NONE,
-            },
-            {
-                image_filename:Website_Type.IMAGE_SIZE_THUMB+"_"+image_filename,
-                path_filename:upload_dir+"/"+Website_Type.IMAGE_SIZE_THUMB+"_"+image_filename,
-                size:250,
-                type_resize:Website_Type.IMAGE_RESIZE_NORMAL,
-            },
-            {
-                image_filename:Website_Type.IMAGE_SIZE_MID+"_"+image_filename,
-                path_filename:upload_dir+"/"+Website_Type.IMAGE_SIZE_MID+"_"+image_filename,
-                size:720,
-                type_resize:Website_Type.IMAGE_RESIZE_NORMAL,
-            },
-            {
-                image_filename:Website_Type.IMAGE_SIZE_LARGE+"_"+image_filename,
-                path_filename:upload_dir+"/"+Website_Type.IMAGE_SIZE_LARGE+"_"+image_filename,
-                size:1000,
-                type_resize:Website_Type.IMAGE_RESIZE_NORMAL,
-            },
-            {
-                image_filename:Website_Type.IMAGE_SIZE_SQUARE_THUMB+"_"+image_filename,
-                path_filename:upload_dir+"/"+Website_Type.IMAGE_SIZE_SQUARE_THUMB+"_"+image_filename,
-                size:250,
-                type_resize:Website_Type.IMAGE_RESIZE_SQUARE,
-            },
-            {
-                image_filename:Website_Type.IMAGE_SIZE_SQUARE_MID+"_"+image_filename,
-                path_filename:upload_dir+"/"+Website_Type.IMAGE_SIZE_SQUARE_MID+"_"+image_filename,
-                size:720,
-                type_resize:Website_Type.IMAGE_RESIZE_SQUARE,
-            },
-            {
-                image_filename:Website_Type.IMAGE_SIZE_SQUARE_LARGE+"_"+image_filename,
-                path_filename:upload_dir+"/"+Website_Type.IMAGE_SIZE_SQUARE_LARGE+"_"+image_filename,
-                size:1000,
-                type_resize:Website_Type.IMAGE_RESIZE_SQUARE,
-            },
-        ];
-    }
-}
-class Field_Logic {
-    //old no more bp
-    static get_field_value_value_old = (value_type,item,value_id) =>{
-        if(value_type!=Form_FIeld.ITEMS){
-            return "";
-        }else{
-            return  [];
-        }
-    };
-    //maybe old
-    static get_field_value_title = (value_type,value_id,group_id,sub_field_title) =>{
-        switch(value_type){
-            case Form_Field.TEXT:
-                return 'text'+'_value_'+value_id;
-                break;
-            case Form_Field.NOTE:
-                return 'note'+'_value_'+value_id;
-                break;
-            case Form_Field.IMAGE:
-                return 'image'+'_value_'+value_id;
-                break;
-            case Form_Field.ITEMS:
-                if(!group_id){
-                    return 'items'+'_value_'+value_id;
-                }else{
-                    return 'items'+'_value_'+value_id +'_group_' +group_id+"_"+Str.get_title_url(sub_field_title);
-                }
-                break;
-            default:
-                return 'text'+'_value_'+value_id;
-        };
-    }
-    static get_test_cost = () =>{
-        return String(Num.get_id(999)) + "." + String(Num.get_id(99));
-    }
-    static get_test_note = () => {
-        return "Note "+String(Num.get_id()) + " Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
-    }
-    static get_field_value_items_title = (value_id) =>{
-        return 'items_value_'+value_id;
-    }
-    /*
-    static get_value_items_group(item,value_id,group_id){
-        let full_str = 'items_value_'+value_id+"_group_"+group_id;
-        let items = [];
-        let count = 0;
-        for(const prop in item){
-            let new_item = {};
-            if(prop.startsWith(full_str)){
-                count = count+1;
-                new_item[prop.replace(full_str+"_","")] = item[prop];
-                items.push(new_item);
-            }
-        }
-        return items;
-    }
-    */
-}
 class Template_Logic {
-    static get_template_section = (type) => {
-        let template_section_list = [
-            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_HEADER),title:Website_Title.TEMPLATE_SECTION_HEADER,label:Website_Title.TEMPLATE_SECTION_HEADER},
-            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_BODY),title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY},
-            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_FOOTER),title:Website_Title.TEMPLATE_SECTION_FOOTER,label:Website_Title.TEMPLATE_SECTION_FOOTER},
-        ];
-        return template_section_list.find(item_find => item_find.value === type)? template_section_list.find(item_find => item_find.value === type) : {value:Website_Title.TEMPLATE_SECTION_BODY,title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY};
-    };
     static get_template_sub_value_edit = (template_id,section_type) => {
         return {parent_table:Website_Table.TEMPLATE,parent_id:template_id,section_type:section_type,event_handler:section_type + "_"+Form_Field.MESSAGE};
     };
+}
+class Sub_Value_Logic {
+  static get_sub_value = (parent_table,parent_id,type,title) => {
+        return Data_Logic.get(Website_Table.SUB_VALUE,0,{data:{parent_table:parent_table,parent_id:parent_id,type:type,title:title}});
+    };
+ static get_sub_value_value(item_sub_value_edit,sub_values,sub_value_type,section_id){
+        let value_title = '';
+        if(!sub_values){
+            sub_values=[];
+        }
+        if(item_sub_value_edit[Form_Field.PARENT_TABLE] === Website_Table.PAGE){
+            value_title = Page_Logic.get_page_section(item_sub_value_edit.section_type).title+ " "+section_id;
+        }else if(item_sub_value_edit[Form_Field.PARENT_TABLE] === Website_Table.TEMPLATE){
+            value_title = Template_Logic.get_template_section(item_sub_value_edit.section_type).title+ " "+section_id;
+        }
+        if(sub_value_type != Form_Field.ITEMS){
+            if(sub_values.length>0){
+                return  sub_values.find(item_find => item_find.title === value_title) ? sub_values.find(item_find => item_find.title === value_title).value : "";
+            }else{
+                return "";
+            }
+        }else{
+            let values = [];
+            let value_title = '';
+            if(!sub_values){
+                sub_values=[];
+            }
+            if(item_sub_value_edit[Form_Field.PARENT_TABLE] === Website_Table.PAGE){
+                value_title = Page_Logic.get_page_section(item_sub_value_edit.section_type).title+ " "+section_id;
+            }else if(item_sub_value_edit[Form_Field.PARENT_TABLE] === Website_Table.TEMPLATE){
+                value_title = Template_Logic.get_template_section(item_sub_value_edit.section_type).title+ " "+section_id;
+            }
+            let sub_value_match =  sub_values.find(item_find => item_find[Form_Field.TITLE] === value_title);
+            if(sub_value_match){
+                let groups = [];
+                for(let a = 0; a < 30; a++){
+                    if(typeof sub_value_match[Form_Field.GROUP+"_"+a] !== "undefined"){
+                        let new_group = {group_id:0};
+                        new_group[Form_Field.GROUP_ID] = sub_value_match[Form_Field.GROUP+"_"+a];
+                        groups.push(new_group);
+                    }
+                }
+                for(const group of groups){
+                    let value = {};
+                    for(const field in sub_value_match){
+                        if(field.startsWith(Form_Field.FIELD + "_" + group.group_id + "_")){
+                            value[sub_value_match[field]] = sub_value_match[field.replace(Form_Field.FIELD,Form_Field.VALUE)];
+                        }
+                    }
+                    if(value){
+                        values.push(value);
+                    }
+                }
+            }
+            return values;
+        }
+    }
 }
 class Page_Logic {
     static get_test = () =>{
@@ -381,14 +257,6 @@ class Page_Logic {
         data.title="Title "+ Num.get_id();
         data.value="Value "+ Num.get_id();
         return data;
-    };
-    static get_page_section = (type) => {
-        let page_section_list = [
-            {value:Str.get_title_url(Website_Title.PAGE_SECTION_HEADER),title:Website_Title.PAGE_SECTION_HEADER,label:Website_Title.PAGE_SECTION_HEADER},
-            {value:Str.get_title_url(Website_Title.PAGE_SECTION_BODY),title:Website_Title.PAGE_SECTION_BODY,label:Website_Title.PAGE_SECTION_BODY},
-            {value:Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER),title:Website_Title.PAGE_SECTION_FOOTER,label:Website_Title.PAGE_SECTION_FOOTER}
-        ];
-        return page_section_list.find(item_find => item_find.value === type)? page_section_list.find(item_find => item_find.value === type) : {value:Website_Title.PAGE_SECTION_BODY,title:Website_Title.PAGE_SECTION_BODY,label:Str.get_title_url(Website_Title.PAGE_SECTION_BODY)};
     };
     static get_page_sub_value_edit = (page_id,section_type) => {
         return {parent_table:Website_Table.PAGE,parent_id:page_id,section_type:section_type,event_handler:Str.get_title_url(section_type+ "_"+Form_Field.MESSAGE)};
@@ -420,17 +288,13 @@ class Page_Logic {
     };
 }
 module.exports = {
+    Sub_Value_Logic,
     Form_Field,
-    File_Logic,
-    Field_Logic,
-    Image_Logic,
-    Page_Logic,
-    Template_Logic,
-    Storage_Logic,
     Website_Logic,
     Website_Table,
     Website_Title,
     Website_Type,
     Website_Stat,
+    Template_Logic,
     Website_Url
 };

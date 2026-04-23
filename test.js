@@ -52,13 +52,8 @@ describe('connect', function(){ this.timeout(25000);
             async function(call){
                 console.log('CONNECT-START');
                 // -- WEBSITE-TEST-ITEM-START -- //
-                let data = Website_Logic.get_test_items(Project_Table.PRODUCT,3,{generate:true});
-                Log.w('biz_data',data);
-                let query = Website_Logic.get_filter_or_querys(Form_Field.PARENT_ID,Form_data);
-                Log.w('biz_query',query);
 
-                // -- WEBSITE-TEST-ITEM-START -- //
-
+                Log.w('rrr',Field_Logic.get_test_cost())
                 // -- IMAGE-GALLERY-START -- //
                 /*
                 //let data = Website_Logic.get_image_gallery_foreign(Data_Value_Type.ITEMS);
