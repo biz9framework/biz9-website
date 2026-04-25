@@ -188,6 +188,42 @@ class Website_Type {
     static SUB_VALUE_NOTE = 'note';
     static SUB_VALUE_IMAGE = 'image';
     static SUB_VALUE_ITEMS = 'items';
+    //page_section
+    static PAGE_SECTION_HEADER='header_section';
+    static PAGE_SECTION_BODY='body_section';
+    static PAGE_SECTION_FOOTER='footer_section';
+    //page
+    static PAGE_ABOUT='about';
+    static PAGE_CONTACT='contact';
+    static PAGE_HOME='home';
+    static PAGE_FAQ='faq';
+    static PAGE_BLOG_POST='blog_post';
+    static PAGE_BLOG_POST_HOME='plog_post_home';
+    static PAGE_BLOG_POST_SEARCH='blog_post_search';
+    static PAGE_EVENT='event';
+    static PAGE_EVENT_HOME='event_home';
+    static PAGE_EVENT_SEARCH='event_search';
+    static PAGE_GALLERY='gallery';
+    static PAGE_GALLERY_HOME='gallery_home';
+    static PAGE_GALLERY_SEARCH='gallery_search';
+    static PAGE_LOGIN='login';
+    static PAGE_PRODUCT='product';
+    static PAGE_PRODUCT_HOME='product_home';
+    static PAGE_PRODUCT_SEARCH='product_search';
+    static PAGE_REGISTER='register';
+    static PAGE_REVIEW_HOME='review_home';
+    static PAGE_SERVICE='service';
+    static PAGE_SERVICE_HOME='service_home';
+    static PAGE_SERVICE_SEARCH='service_search';
+    //template
+    static TEMPLATE_SECTION_HEADER='header_section';
+    static TEMPLATE_SECTION_BODY='body_section';
+    static TEMPLATE_SECTION_FOOTER='footer_section';
+    //enviroments
+    static ENVIRONMENT_TEST='test';
+    static ENVIRONMENT_STAGE='Stage';
+    static ENVIRONMENT_PRODUCTION='Production';
+
 }
 class Template_Logic {
     static get_template_sub_value_edit = (template_id,section_type) => {
@@ -195,9 +231,9 @@ class Template_Logic {
     };
       static get_template_section = (type) => {
         let template_section_list = [
-            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_HEADER),title:Website_Title.TEMPLATE_SECTION_HEADER,label:Website_Title.TEMPLATE_SECTION_HEADER},
-            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_BODY),title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY},
-            {value:Str.get_title_url(Website_Title.TEMPLATE_SECTION_FOOTER),title:Website_Title.TEMPLATE_SECTION_FOOTER,label:Website_Title.TEMPLATE_SECTION_FOOTER},
+            {value:Website_Type.TEMPLATE_SECTION_HEADER,title:Website_Title.TEMPLATE_SECTION_HEADER,label:Website_Title.TEMPLATE_SECTION_HEADER},
+            {value:Website_Type.TEMPLATE_SECTION_BODY,title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY},
+            {value:Website_Type.TEMPLATE_SECTION_FOOTER,title:Website_Title.TEMPLATE_SECTION_FOOTER,label:Website_Title.TEMPLATE_SECTION_FOOTER},
         ];
         return template_section_list.find(item_find => item_find.value === type)? template_section_list.find(item_find => item_find.value === type) : {value:Website_Title.TEMPLATE_SECTION_BODY,title:Website_Title.TEMPLATE_SECTION_BODY,label:Website_Title.TEMPLATE_SECTION_BODY};
     };
@@ -272,36 +308,27 @@ class Page_Logic {
     };
     static get_pages = () =>{
         let pages = [
-            {value:Str.get_title_url(Website_Title.PAGE_ABOUT),url:Website_Url.PAGE_ABOUT,title:Str.get_title(Website_Title.PAGE_ABOUT)},
-            {value:Str.get_title_url(Website_Title.PAGE_BLOG_POST),url:Website_Url.PAGE_BLOG_POST,title:Str.get_title(Website_Title.PAGE_BLOG_POST)},
-            {value:Str.get_title_url(Website_Title.PAGE_CONTACT),url:Website_Url.PAGE_CONTACT,title:Str.get_title(Website_Title.PAGE_CONTACT)},
-            {value:Str.get_title_url(Website_Title.PAGE_EVENT),url:Website_Url.PAGE_EVENT,title:Str.get_title(Website_Title.PAGE_EVENT)},
-            {value:Str.get_title_url(Website_Title.PAGE_FAQ),url:Website_Url.PAGE_FAQ,title:Str.get_title(Website_Title.PAGE_FAQ)},
-            {value:Str.get_title_url(Website_Title.PAGE_HOME),url:Website_Url.PAGE_HOME,title:Str.get_title(Website_Title.PAGE_HOME)},
-            {value:Str.get_title_url(Website_Title.PAGE_FAQ),url:Website_Url.PAGE_FAQ,title:Str.get_title(Website_Title.PAGE_FAQ)},
-            {value:Str.get_title_url(Website_Title.PAGE_GALLERY),url:Website_Url.PAGE_GALLERY,title:Str.get_title(Website_Title.PAGE_GALLERY)},
-            {value:Str.get_title_url(Website_Title.PAGE_PRODUCT),url:Website_Url.PAGE_PRODUCT,title:Str.get_title(Website_Title.PAGE_PRODUCT)},
-            {value:Str.get_title_url(Website_Title.PAGE_REGISTER),url:Website_Url.PAGE_REGISTER,title:Str.get_title(Website_Title.PAGE_REGISTER)},
-            {value:Str.get_title_url(Website_Title.PAGE_SERVICE),url:Website_Url.PAGE_SERVICE,title:Str.get_title(Website_Title.PAGE_SERVICE)}
+            {value:Website_Type.PAGE_ABOUT,url:Website_Url.ABOUT,title:Website_Title.PAGE_ABOUT,label:Website_Title.PAGE_ABOUT},
+            {value:Website_Type.PAGE_BLOG_POST,url:Website_Url.BLOG_POST,title:Website_Title.PAGE_BLOG_POST,label:Website_Title.PAGE_BLOG_POST},
+            {value:Website_Type.PAGE_CONTACT,url:Website_Url.CONTACT,title:Website_Title.PAGE_CONTACT,label:Website_Title.PAGE_CONTACT},
+            {value:Website_Type.PAGE_EVENT,url:Website_Url.EVENT,title:Website_Title.PAGE_EVENT,label:Website_Title.PAGE_EVENT},
+            {value:Website_Type.PAGE_FAQ,url:Website_Url.FAQ,title:Website_Title.PAGE_FAQ,label:Website_Title.PAGE_FAQ},
+            {value:Website_Type.PAGE_HOME,url:Website_Url.HOME,title:Website_Title.PAGE_HOME,label:Website_Title.PAGE_HOME},
+            {value:Website_Type.PAGE_FAQ,url:Website_Url.FAQ,title:Website_Title.PAGE_FAQ,label:Website_Title.PAGE_FAQ},
+            {value:Website_Type.PAGE_GALLERY,url:Website_Url.GALLERY,title:Website_Title.PAGE_GALLERY,label:Website_Title.PAGE_GALLERY},
+            {value:Website_Type.PAGE_PRODUCT,url:Website_Url.PRODUCT,title:Website_Title.PAGE_PRODUCT,label:Website_Title.PAGE_PRODUCT},
+            {value:Website_Type.PAGE_REGISTER,url:Website_Url.REGISTER,title:Website_Title.PAGE_REGISTER,label:Website_Title.PAGE_REGISTER},
+            {value:Website_Type.PAGE_SERVICE,url:Website_Url.SERVICE,title:Website_Title.PAGE_SERVICE,label:Website_Title.PAGE_SERVICE}
         ];
-        let r_pages = [];
-        for(const page of pages){
-            let r_page = {};
-            r_page.label = page.title;
-            r_page.title = page.title;
-            r_page.value = page.type;
-            r_page.url = page.url;
-            r_pages.push(r_page);
-        };
-        return r_pages;
+        return pages;
     };
      static get_page_section = (type) => {
         let page_section_list = [
-            {value:Str.get_title_url(Website_Title.PAGE_SECTION_HEADER),title:Website_Title.PAGE_SECTION_HEADER,label:Website_Title.PAGE_SECTION_HEADER},
-            {value:Str.get_title_url(Website_Title.PAGE_SECTION_BODY),title:Website_Title.PAGE_SECTION_BODY,label:Website_Title.PAGE_SECTION_BODY},
-            {value:Str.get_title_url(Website_Title.PAGE_SECTION_FOOTER),title:Website_Title.PAGE_SECTION_FOOTER,label:Website_Title.PAGE_SECTION_FOOTER}
+            {value:Website_Type.PAGE_SECTION_HEADER,title:Website_Title.PAGE_SECTION_HEADER,label:Website_Title.PAGE_SECTION_HEADER},
+            {value:Website_Type.PAGE_SECTION_BODY,title:Website_Title.PAGE_SECTION_BODY,label:Website_Title.PAGE_SECTION_BODY},
+            {value:Website_Type.PAGE_SECTION_FOOTER,title:Website_Title.PAGE_SECTION_FOOTER,label:Website_Title.PAGE_SECTION_FOOTER}
         ];
-        return page_section_list.find(item_find => item_find.value === type)? page_section_list.find(item_find => item_find.value === type) : {value:Website_Title.PAGE_SECTION_BODY,title:Website_Title.PAGE_SECTION_BODY,label:Str.get_title_url(Website_Title.PAGE_SECTION_BODY)};
+        return page_section_list.find(item_find => item_find.value === type)? page_section_list.find(item_find => item_find.value === type) : {value:Website_Title.PAGE_SECTION_BODY,title:Website_Title.PAGE_SECTION_BODY,label:Website_Title.PAGE_SECTION_BODY};
     };
 
 }

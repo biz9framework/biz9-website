@@ -53,7 +53,7 @@ describe('connect', function(){ this.timeout(25000);
                 console.log('CONNECT-START');
                 // -- WEBSITE-TEST-ITEM-START -- //
 
-                Log.w('rrr',Field_Logic.get_test_cost())
+                Log.w('rrr',Page_Logic.get_pages())
                 // -- IMAGE-GALLERY-START -- //
                 /*
                 //let data = Website_Logic.get_image_gallery_foreign(Data_Value_Type.ITEMS);
