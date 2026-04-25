@@ -81,8 +81,7 @@ class Website_Url {
     static REVIEW_HOME="page/review_home";
 }
 class Website_Stat {
-    static ITEM_GET="item_get";
-    static ITEM_POST="item_post";
+    static POST_VIEW="item_get";
 }
 class Website_Table {
     static BLANK="blank_biz";
