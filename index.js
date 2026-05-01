@@ -219,9 +219,9 @@ class Website_Type {
     static TEMPLATE_SECTION_BODY='body_section';
     static TEMPLATE_SECTION_FOOTER='footer_section';
     //enviroments
-    static ENVIRONMENT_TEST='test';
-    static ENVIRONMENT_STAGE='Stage';
-    static ENVIRONMENT_PRODUCTION='Production';
+    static ENV_TEST='test';
+    static ENV_STAGE='Stage';
+    static ENV_PRODUCTION='Production';
 
 }
 class Template_Logic {
